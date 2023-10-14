@@ -82,7 +82,7 @@ public class TestUpOnly extends TestUtils {
 
     @Test
     /** A tricky merge.
-     *
+
      * The tricky part here is that the 4 tile on the bottom row shouldn't
      * merge with the newly created 4 tile on the top row. If you're failing
      * this test, try seeing how you can ensure that the bottom 4 tile doesn't
