@@ -24,6 +24,9 @@ public class ArrayDeque<T> {
         items[pre] = item;
         size += 1;
         pre -= 1;
+        if (pre == -1){
+            resize(size * 2);
+        }
 
     }
 
@@ -31,6 +34,9 @@ public class ArrayDeque<T> {
         items[next] = item;
         size += 1;
         next += 1;
+        if (next == items.length){
+            resize(size * 2);
+        }
     }
 
     public boolean isEmpty(){
@@ -67,6 +73,16 @@ public class ArrayDeque<T> {
         return item;
     }
 
+    private void ShrinkSize(int N){
+        if (isEmpty()){
+            resize(8);
+            // the use rate of the array is small then 25%
+        } else if (items.length / 4 > size && size >= 4) {
+            resize(size / 2);
+        }
+    }
+
+
     public T get(int index){
         if (index < 0 || index > size - 1){
             return null;
@@ -76,7 +92,12 @@ public class ArrayDeque<T> {
     }
 
     private void resize(int s){
-
+        T[] newItems = (T[]) new Object[s];
+        int firstPos = Math.abs(s - size) / 2;
+        System.arraycopy(items, next + 1, newItems, firstPos, size);
+        items = newItems;
+        pre = firstPos - 1;
+        next = firstPos + size;
     }
 
 }
